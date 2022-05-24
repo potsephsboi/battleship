@@ -1,3 +1,3 @@
 # battleship
-Crappy 2d game made using mainly pygame Rect class
+Crappy 2d game remake made using mainly pygame Rect class
 :)
