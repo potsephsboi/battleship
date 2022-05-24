@@ -31,8 +31,9 @@ ship_img = pygame.image.load('bttlship.png')
 init_sbuttons_labels()
 init_gbuttons_labels()
 
-def setup(player):
+def setup(player, command):
     WIN.fill(WHITE)
+    WIN.blit(show_command(command), (WIDTH-225, 50))
     show_setup_ui(player)
     pygame.display.update()
 
@@ -47,7 +48,7 @@ def start_screen(s_time, c_time):
     WIN.blit(label_loading, (125, 400))
     WIN.blit(ship_img, (100, 75))
     pygame.display.update()
-    return True if c_time - s_time < 3 else False
+    return True if c_time - s_time < 1 else False
 
 def main():
     run = True
@@ -81,9 +82,10 @@ def main():
                     if not command_info[2]:
                         command = command_info[0]
                         command_len = command_info[1]
-                        print(command)
+                        
                     else:
                         mode = 's2'
+                        
                 elif mode == 's2':
                     command_info = setup_command(mouse, command, command_len, player2, False)
                     if not command_info[2]:
@@ -113,9 +115,9 @@ def main():
                     else:
                         mode = 'g1'
         if mode == 's1':
-            setup(player1)
+            setup(player1, command)
         elif mode == 's2':
-            setup(player2)
+            setup(player2, command)
         elif mode == 'g1':
             game(player1)
         elif mode == 'g2':

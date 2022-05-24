@@ -5,6 +5,9 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 BLUE = (0, 32, 255)
 
+pygame.init()
+my_font = pygame.font.SysFont("monospace", 20)
+
 class Player:
     def __init__(self, identity, grid, hit_grid, ships):
         self.identity = identity
@@ -109,3 +112,6 @@ def fire_check(pos, sender, receiver):
     else:
         print('you have already fired to this location')
         return False
+
+def show_command(command):
+    return my_font.render(f"Command: {command[0]} {command[1]} {command[2]} {command[3]}", True, BLACK)
