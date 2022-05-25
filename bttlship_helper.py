@@ -107,6 +107,15 @@ def fire_check(pos, sender, receiver):
     if sender.hit_grid[gr][st] != 'X' and sender.hit_grid[gr][st] != 'O':
         if receiver.grid[gr][st] != '_':
             print('hit target')
+            ship_name = receiver.grid
+            for ship in receiver.ships:
+                if ship_name == ship.s_type:
+                    ship.hp -= 1
+                    if ship.hp == 0:
+                        receiver.ships.remove(ship)
+                        # ADD GREY COLOR IF SHIP HAS SUNK
+
+
             sender.hit_grid[gr][st] = 'X'
         else:
             print('missed target')
@@ -129,3 +138,11 @@ def radar(pos, sender, receiver):
 
 def show_command(command):
     return my_font.render(f"Command: {command[0]} {command[1]} {command[2]} {command[3]}", True, BLACK)
+
+def win_check(player1, player2):
+    if not player1.ships:
+        return [True, 'p1']
+    elif not player2.ships:
+        return [True, 'p2']
+    else:
+        return [False, '_']

@@ -10,7 +10,7 @@ GREEN = (124, 252, 0)
 RED = (255, 0, 0)
 COLOR_LST = [BLACK, BLUE, PURPLE, RED, GREEN, BLACK, BLACK, BLACK]
 
-color_dict = {
+color_codes_setup = {
     'a': BLACK,
     'b': BLUE,
     'c': PURPLE,
@@ -47,7 +47,7 @@ def show_setup_ui(player):
                 for b in SetupButtons.Sbuttons:
                     if b[2][0] == name:
                         SetupButtons((40*(col+1)+2, 40*(row+1)+2), 40, 40, f'{name}', my_font.render(f'{name}', True, WHITE))
-                        pygame.draw.rect(WIN, color_dict[f'{name}'], SetupButtons.Sbuttons[-1][0])
+                        pygame.draw.rect(WIN, color_codes_setup[f'{name}'], SetupButtons.Sbuttons[-1][0])
                         SetupButtons.Sbuttons.pop()
 
 

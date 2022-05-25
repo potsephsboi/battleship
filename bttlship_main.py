@@ -120,8 +120,14 @@ def main():
             setup(player2, command)
         elif mode == 'g1':
             game(player1)
+            game_info = win_check(player1, player2)
+            if game_info[0]:
+                print(f'game over, {game_info[1]}')
         elif mode == 'g2':
             game(player2)
+            game_info = win_check(player1, player2)
+            if game_info[0]:
+                print(f'game over, {game_info[1]}')
 
     pygame.quit()
 

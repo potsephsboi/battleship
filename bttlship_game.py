@@ -1,5 +1,4 @@
 from bttlship_helper import *
-from smol_games.battleship.bttlship_setup import PURPLE
 
 WIDTH = 700
 HEIGHT = 500
@@ -7,8 +6,9 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BLUE = (0, 32, 255)
 RED = (255, 0, 0)
+PURPLE = (77, 26, 127)
 
-color_dict = {
+color_codes_game = {
     'X': RED,
     'O': BLUE,
     'XO': PURPLE
@@ -33,7 +33,7 @@ def show_game_ui(player):
                 val = player.hit_grid[row][col]
                 GameButtons((40 * (col + 1) + 2, 40 * (row + 1) + 2), 40, 40, f'{val}',
                             my_font.render(f'{val}', True, WHITE))
-                pygame.draw.rect(WIN, color_dict[f'{val}'], GameButtons.GButtons[-1][0])
+                pygame.draw.rect(WIN, color_codes_game[f'{val}'], GameButtons.GButtons[-1][0])
                 GameButtons.GButtons.pop()
 
 
