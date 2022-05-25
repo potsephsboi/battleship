@@ -27,10 +27,11 @@ title_labels = [my_font.render("Player 1 setup", True, BLACK), my_font.render("P
 
 
 player1 = Player(1, [['_' for i in range(10)] for j in range(10)], [['_' for i in range(10)] for j in range(10)],
-                 [Ship('ac', 5), Ship('bb', 4), Ship('cc', 3), Ship('dd', 2), Ship('sb', 2)])
+                 [Ship('a', 5), Ship('b', 4), Ship('c', 3), Ship('d', 2), Ship('s', 2)])
 
 player2 = Player(2, [['_' for i in range(10)] for j in range(10)], [['_' for i in range(10)] for j in range(10)],
-                 [Ship('ac', 5), Ship('bb', 4), Ship('cc', 3), Ship('dd', 2), Ship('sb', 2)])
+                 [Ship('a', 5), Ship('b', 4), Ship('c', 3), Ship('d', 2), Ship('s', 2)])
+
 
 
 def show_setup_ui(player):
@@ -163,8 +164,7 @@ def grid_setup(command, player):
         print('Cannot place ship due to collision with another ship.')
     else:
         for ship in player.ships:
-            if ship.s_type[0] == ship_type:
+            if ship.s_type == ship_type:
                 player.ships.remove(ship)
-                break
 
 

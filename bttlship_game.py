@@ -7,11 +7,13 @@ BLACK = (0, 0, 0)
 BLUE = (0, 32, 255)
 RED = (255, 0, 0)
 PURPLE = (77, 26, 127)
+GREY = (99, 102, 106)
 
 color_codes_game = {
     'X': RED,
     'O': BLUE,
-    'XO': PURPLE
+    'XO': PURPLE,
+    'XX': GREY
 }
 
 pygame.init()
@@ -51,7 +53,7 @@ def game_command(mouse, command, command_len, sender, receiver, done):
         done = radar(command, sender, receiver)
 
     elif b_detect == 'torp' and command_len == 2:
-        dir = 'u' # <- must let the player select dir
+        dir = input('Enter torpedo direction: ')
         done = torpedo(command, sender, receiver, dir)
 
     return [command, command_len, done]

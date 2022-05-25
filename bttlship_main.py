@@ -44,12 +44,13 @@ init_gbuttons_labels()
 
 def setup(player, command):
     WIN.fill(WHITE)
-    WIN.blit(show_command(command), (WIDTH-225, 50))
+    WIN.blit(show_command(command, 's'), (WIDTH-225, 50))
     show_setup_ui(player)
     pygame.display.update()
 
-def game(player):
+def game(player, command):
     WIN.fill(WHITE)
+    WIN.blit(show_command(command, 'g'), (WIDTH-225, 50))
     show_game_ui(player)
     pygame.display.update()
 
@@ -80,7 +81,7 @@ def main():
                     if ev.type == pygame.QUIT:
                         run = False
                         repeat = False
-            mode = 'g1'
+            mode = 's1'
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -92,8 +93,7 @@ def main():
                     command_info = setup_command(mouse, command, command_len, player1, False)
                     if not command_info[2]:
                         command = command_info[0]
-                        command_len = command_info[1]
-                        
+                        command_len = command_info[1]         
                     else:
                         mode = 's2'
                         
@@ -102,8 +102,9 @@ def main():
                     if not command_info[2]:
                         command = command_info[0]
                         command_len = command_info[1]
-                        print(command)
                     else:
+                        player1.ships = [Ship('a', 5), Ship('b', 4), Ship('c', 3), Ship('d', 2), Ship('s', 2)]
+                        player2.ships = [Ship('a', 5), Ship('b', 4), Ship('c', 3), Ship('d', 2), Ship('s', 2)]
                         mode = 'g1'
                         command = ['_', '_']
                         command_len = 0
@@ -112,8 +113,7 @@ def main():
                     command_info = game_command(mouse, command, command_len, player1, player2, False)
                     if not command_info[2]:
                         command = command_info[0]
-                        command_len = command_info[1]
-                        print(command)
+                        command_len = command_info[1]                    
                     else:
                         mode = 'g2'
 
@@ -122,7 +122,6 @@ def main():
                     if not command_info[2]:
                         command = command_info[0]
                         command_len = command_info[1]
-                        print(command)
                     else:
                         mode = 'g1'
         if mode == 's1':
@@ -130,17 +129,16 @@ def main():
         elif mode == 's2':
             setup(player2, command)
         elif mode == 'g1':
-            game(player1)
+            game(player1, command)
             game_info = win_check(player1, player2)
-            print(game_info)
             if game_info[0]:
-                print(f'game over, {game_info[1]}')
+                print(f'game over, {game_info[1]} wins')
                 run = False
         elif mode == 'g2':
-            game(player2)
+            game(player2, command)
             game_info = win_check(player1, player2)
             if game_info[0]:
-                print(f'game over, {game_info[1]}')
+                print(f'game over, {game_info[1]} wins')
                 run = False
 
 
