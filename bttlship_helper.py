@@ -65,6 +65,9 @@ def init_gbuttons_labels():
     my_font = pygame.font.SysFont("monospace", 20)
 
     GameButtons((530, 270), 90, 40, 'fire', my_font.render("FIRE", True, WHITE))
+    GameButtons((480, 120), 90, 40, 'radar', my_font.render("RADAR", True, WHITE))
+    GameButtons((580, 120), 90, 40, 'double', my_font.render("DOUBLE", True, WHITE))
+    GameButtons((530, 170), 100, 40, 'torp', my_font.render("TORPEDO", True, WHITE))
 
 def display_grid(surface):
     x_lines = []
@@ -112,6 +115,17 @@ def fire_check(pos, sender, receiver):
     else:
         print('you have already fired to this location')
         return False
+
+def radar(pos, sender, receiver):
+    st, gr = int(pos[0]), int(pos[1])
+    for i in range(gr-1, gr+2):
+        for j in range(st-1, st+2):
+            if receiver.grid[i][j] != '_':
+                sender.hit_grid[i][j] = 'XO'
+            else:
+                sender.hit_grid[i][j] = 'O'
+    
+    return True
 
 def show_command(command):
     return my_font.render(f"Command: {command[0]} {command[1]} {command[2]} {command[3]}", True, BLACK)

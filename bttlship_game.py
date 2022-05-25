@@ -1,4 +1,5 @@
 from bttlship_helper import *
+from smol_games.battleship.bttlship_setup import PURPLE
 
 WIDTH = 700
 HEIGHT = 500
@@ -9,7 +10,8 @@ RED = (255, 0, 0)
 
 color_dict = {
     'X': RED,
-    'O': BLUE
+    'O': BLUE,
+    'XO': PURPLE
 }
 
 pygame.init()
@@ -41,7 +43,11 @@ def game_command(mouse, command, command_len, sender, receiver, done):
         if command[0] == '_' and command[1] == '_':
             command_len += 2
         command[0], command[1] = f'{b_detect[0] - 1}', f'{b_detect[1] - 1}'
+
     elif b_detect == 'fire' and command_len == 2:
         done = fire_check(command, sender, receiver)
+    
+    elif b_detect =='radar' and command_len == 2:
+        done = radar(command, sender, receiver)
 
     return [command, command_len, done]
