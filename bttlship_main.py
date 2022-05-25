@@ -6,6 +6,8 @@
 # TODO: add grey icon when ship is destroyed
 #       add torpedo button
 #       add double button
+#       add grey color when sihp is sunk
+#       add torpedo direction selector
 
 import time
 from bttlship_setup import *

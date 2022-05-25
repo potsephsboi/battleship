@@ -50,4 +50,8 @@ def game_command(mouse, command, command_len, sender, receiver, done):
     elif b_detect =='radar' and command_len == 2:
         done = radar(command, sender, receiver)
 
+    elif b_detect == 'torp' and command_len == 2:
+        dir = 'u' # <- must let the player select dir
+        done = torpedo(command, sender, receiver, dir)
+
     return [command, command_len, done]

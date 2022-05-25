@@ -107,15 +107,11 @@ def fire_check(pos, sender, receiver):
     if sender.hit_grid[gr][st] != 'X' and sender.hit_grid[gr][st] != 'O':
         if receiver.grid[gr][st] != '_':
             print('hit target')
-            ship_name = receiver.grid
-            for ship in receiver.ships:
-                if ship_name == ship.s_type:
-                    ship.hp -= 1
-                    if ship.hp == 0:
-                        receiver.ships.remove(ship)
-                        # ADD GREY COLOR IF SHIP HAS SUNK
-
-
+            ship = find_ship(receiver, [st, gr])[0]
+            ship.hp -= 1
+            if ship.hp == 0:
+                receiver.ships.remove(ship)
+                
             sender.hit_grid[gr][st] = 'X'
         else:
             print('missed target')
@@ -124,6 +120,48 @@ def fire_check(pos, sender, receiver):
     else:
         print('you have already fired to this location')
         return False
+
+def torpedo(pos, sender, receiver, dir):
+    st, gr = int(pos[0]), int(pos[1])
+    if dir  == 'u' and gr >= 5:
+        for i in range(5):
+            if receiver.grid[gr-i][st] != '_':
+                sender.hit_grid[gr-i][st] = 'X'
+                ship = find_ship(receiver, [st, gr-i])
+                ship.hp -= 1
+                if ship.hp == 0:
+                    receiver.ships.remove(ship)
+        return True
+    elif dir  == 'd' and gr <= 5:
+        for i in range(5):
+            if receiver.grid[gr+i][st] != '_':
+                sender.hit_grid[gr+i][st] = 'X'
+                ship = find_ship(receiver, [st, gr+i])
+                ship.hp -= 1
+                if ship.hp == 0:
+                    receiver.ships.remove(ship)
+        return True
+    elif dir == 'l' and st >= 5:
+        for i in range(5):
+            if receiver.grid[gr][st-i] != '_':
+                sender.hit_grid[gr][st-i] = 'X'
+                ship = find_ship(receiver, [st-i, gr])
+                ship.hp -= 1
+                if ship.hp == 0:
+                    receiver.ships.remove(ship)
+        return True
+    elif dir == 'r' and st <= 5:
+        for i in range(5):
+            if receiver.grid[gr][st+i] != '_':
+                sender.hit_grid[gr][st+i] = 'X'
+                ship = find_ship(receiver, [st+i, gr])
+                ship.hp -= 1
+                if ship.hp == 0:
+                    receiver.ships.remove(ship)
+        return True
+    else:
+        return False
+
 
 def radar(pos, sender, receiver):
     st, gr = int(pos[0]), int(pos[1])
@@ -167,3 +205,11 @@ def win_check(player1, player2):
         return [True, 'p2']
     else:
         return [False]
+
+def find_ship(player, pos):
+    st, gr = int(pos[0]), int(pos[1])
+    ship_name = player.grid[gr][st]
+    for ship in player.ships:
+        if ship_name == ship.s_type:
+            return [ship, True]
+    return [False]
