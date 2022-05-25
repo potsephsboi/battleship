@@ -69,7 +69,7 @@ def main():
                     if ev.type == pygame.QUIT:
                         run = False
                         repeat = False
-            mode = 's1'
+            mode = 'g1'
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -121,13 +121,17 @@ def main():
         elif mode == 'g1':
             game(player1)
             game_info = win_check(player1, player2)
+            print(game_info)
             if game_info[0]:
                 print(f'game over, {game_info[1]}')
+                run = False
         elif mode == 'g2':
             game(player2)
             game_info = win_check(player1, player2)
             if game_info[0]:
                 print(f'game over, {game_info[1]}')
+                run = False
+
 
     pygame.quit()
 

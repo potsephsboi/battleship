@@ -127,14 +127,35 @@ def fire_check(pos, sender, receiver):
 
 def radar(pos, sender, receiver):
     st, gr = int(pos[0]), int(pos[1])
-    for i in range(gr-1, gr+2):
-        for j in range(st-1, st+2):
-            if receiver.grid[i][j] != '_':
-                sender.hit_grid[i][j] = 'XO'
-            else:
-                sender.hit_grid[i][j] = 'O'
-    
-    return True
+    if 9 > gr > 0 and 9 > st > 0:
+        if receiver.grid[gr][st] != '_':
+            sender.hit_grid[gr][st] = 'XO'
+        else:
+            sender.hit_grid[gr][st] = 'O'
+
+        if receiver.grid[gr-1][st] != '_':
+            sender.hit_grid[gr][st] = 'XO'
+        else:
+            sender.hit_grid[gr-1][st] = 'O'
+
+        if receiver.grid[gr+1][st] != '_':
+            sender.hit_grid[gr][st] = 'XO'
+        else:
+            sender.hit_grid[gr+1][st] = 'O'
+
+        if receiver.grid[gr][st-1] != '_':
+            sender.hit_grid[gr][st] = 'XO'
+        else:
+            sender.hit_grid[gr][st-1] = 'O'
+
+        if receiver.grid[gr][st+1] != '_':
+            sender.hit_grid[gr][st] = 'XO'
+        else:
+            sender.hit_grid[gr][st+1] = 'O'
+        return True
+    else:
+        return False
+
 
 def show_command(command):
     return my_font.render(f"Command: {command[0]} {command[1]} {command[2]} {command[3]}", True, BLACK)
@@ -145,4 +166,4 @@ def win_check(player1, player2):
     elif not player2.ships:
         return [True, 'p2']
     else:
-        return [False, '_']
+        return [False]
