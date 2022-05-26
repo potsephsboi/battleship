@@ -4,7 +4,7 @@
 # Creator: The one and only potsephsboi
 #
 # TODO: 
-#       add double button
+#       fix double button
 
 
 

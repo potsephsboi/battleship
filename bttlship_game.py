@@ -34,26 +34,46 @@ def show_game_ui(player):
             if player.hit_grid[row][col] != '_':
                 val = player.hit_grid[row][col]
                 GameButtons((40 * (col + 1) + 2, 40 * (row + 1) + 2), 40, 40, f'{val}',
-                            my_font.render(f'{val}', True, WHITE))
+                                my_font.render(f'{val}', True, WHITE), False)
                 pygame.draw.rect(WIN, color_codes_game[f'{val}'], GameButtons.GButtons[-1][0])
                 GameButtons.GButtons.pop()
 
-
+replay = False
 def game_command(mouse, command, command_len, sender, receiver, done):
-    b_detect = detect_valid_bpress(mouse, 'g')
+    b_detect = detect_valid_bpress(mouse, 'g') # should return button object
+    b_obj = 0
+
+    for but in GameButtons.GButtons:
+        if but[2] == b_detect:
+            b_obj = but
+            break
+
     if type(b_detect) == list:
         if command[0] == '_' and command[1] == '_':
             command_len += 2
         command[0], command[1] = f'{b_detect[0] - 1}', f'{b_detect[1] - 1}'
 
-    elif b_detect == 'fire' and command_len == 2:
+    if b_detect == 'fire' and command_len == 2:
         done = fire_check(command, sender, receiver)
+        if replay:
+            done = False
     
-    elif b_detect =='radar' and command_len == 2:
+    if b_detect =='radar' and command_len == 2:
         done = radar(command, sender, receiver)
 
-    elif b_detect == 'torp' and command_len == 2:
+    if b_detect == 'torp' and command_len == 2 and b_obj[-1] is False:
+        b_obj[-1] = True
+        print('Used game boost. You can fire a torpedo. ')
         dir = input('Enter torpedo direction (u, d, l, r): ')
         done = torpedo(command, sender, receiver, dir)
+    elif b_detect == 'torp':
+        print('Already used torpedo boost.')
+
+    if b_detect == 'double' and b_obj[-1] is False:
+        b_obj[-1] = True
+        replay = True
+        print('Used game boost. You can act twice for one round.')
+    elif b_detect == 'double':
+        print('Alredy used double boost')
 
     return [command, command_len, done]
