@@ -89,6 +89,7 @@ def setup_command(mouse, command, command_len, player, done):
         if but_detect in ['ac', 'bb', 'cc', 'dd', 'sb']:
             if command[0] == '_':
                 command_len += 1
+            command[3] = '_'
             command[0] = but_detect[0]
 
         if but_detect == 'rot':
@@ -105,7 +106,8 @@ def setup_command(mouse, command, command_len, player, done):
             for ship in player.ships:
                 if ship.s_type[0] == command[0]:
                     found = True
-                    grid_setup(command, player)
+                    if command[3] != '_':
+                        grid_setup(command, player)
                     command[3] = '_'
                     break
             if not found:
@@ -136,6 +138,7 @@ def grid_setup(command, player):
         for i in range(s_len):
             if player.grid[y-i][x] != '_':
                 place = False
+                break
         if place:
             for i in range(s_len):
                 player.grid[y-i][x] = ship_type
@@ -143,6 +146,7 @@ def grid_setup(command, player):
         for i in range(s_len):
             if player.grid[y+i][x] != '_':
                 place = False
+                break
         if place:
             for i in range(s_len):
                 player.grid[y+i][x] = ship_type
@@ -150,6 +154,7 @@ def grid_setup(command, player):
         for i in range(s_len):
             if player.grid[y][x-i] != '_':
                 place = False
+                break
         if place:
             for i in range(s_len):
                 player.grid[y][x-i] = ship_type
@@ -157,6 +162,7 @@ def grid_setup(command, player):
         for i in range(s_len):
             if player.grid[y][x+i] != '_':
                 place = False
+                break
         if place:
             for i in range(s_len):
                 player.grid[y][x+i] = ship_type

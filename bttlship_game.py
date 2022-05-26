@@ -53,7 +53,7 @@ def game_command(mouse, command, command_len, sender, receiver, done):
         done = radar(command, sender, receiver)
 
     elif b_detect == 'torp' and command_len == 2:
-        dir = input('Enter torpedo direction: ')
+        dir = input('Enter torpedo direction (u, d, l, r): ')
         done = torpedo(command, sender, receiver, dir)
 
     return [command, command_len, done]

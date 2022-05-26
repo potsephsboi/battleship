@@ -3,11 +3,10 @@
 # Run this file to play battleship on your local machine
 # Creator: The one and only potsephsboi
 #
-# TODO: add grey icon when ship is destroyed
-#       add torpedo button
+# TODO: 
 #       add double button
-#       add grey color when sihp is sunk
-#       add torpedo direction selector
+
+
 
 import time
 from bttlship_setup import *

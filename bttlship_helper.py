@@ -139,7 +139,7 @@ def torpedo(pos, sender, receiver, dir):
         for i in range(5):
             if receiver.grid[gr+i][st] != '_':
                 sender.hit_grid[gr+i][st] = 'X'
-                ship = find_ship(receiver, [st, gr+i])
+                ship = find_ship(receiver, [st, gr+i])[0]
                 ship.hp -= 1
                 if ship.hp == 0:
                     destroy_ship(sender, receiver, ship)
@@ -150,7 +150,7 @@ def torpedo(pos, sender, receiver, dir):
         for i in range(5):
             if receiver.grid[gr][st-i] != '_':
                 sender.hit_grid[gr][st-i] = 'X'
-                ship = find_ship(receiver, [st-i, gr])
+                ship = find_ship(receiver, [st-i, gr])[0]
                 ship.hp -= 1
                 if ship.hp == 0:
                     destroy_ship(sender, receiver, ship)
@@ -161,7 +161,7 @@ def torpedo(pos, sender, receiver, dir):
         for i in range(5):
             if receiver.grid[gr][st+i] != '_':
                 sender.hit_grid[gr][st+i] = 'X'
-                ship = find_ship(receiver, [st+i, gr])
+                ship = find_ship(receiver, [st+i, gr])[0]
                 ship.hp -= 1
                 if ship.hp == 0:
                     destroy_ship(sender, receiver, ship)
@@ -212,9 +212,9 @@ def show_command(command, mode):
 
 def win_check(player1, player2):
     if not player1.ships:
-        return [True, 'p1']
-    elif not player2.ships:
         return [True, 'p2']
+    elif not player2.ships:
+        return [True, 'p1']
     else:
         return [False]
 
