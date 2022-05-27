@@ -75,7 +75,7 @@ def main():
                     if ev.type == pygame.QUIT:
                         run = False
                         repeat = False
-            mode = 'g1'
+            mode = 's1'
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
