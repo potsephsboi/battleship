@@ -1,10 +1,7 @@
-# WORK IN PROGRESS
 # This is a game remake of the popular game battleship
 # Run this file to play battleship on your local machine
 # Creator: The one and only potsephsboi
-#
-# TODO: 
-#       fix double button
+
 
 import time
 from bttlship_setup import *
