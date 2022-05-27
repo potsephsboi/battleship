@@ -6,8 +6,6 @@
 # TODO: 
 #       fix double button
 
-
-
 import time
 from bttlship_setup import *
 from bttlship_game import *
@@ -80,7 +78,7 @@ def main():
                     if ev.type == pygame.QUIT:
                         run = False
                         repeat = False
-            mode = 's1'
+            mode = 'g1'
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

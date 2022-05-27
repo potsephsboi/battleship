@@ -38,7 +38,7 @@ def show_game_ui(player):
                 pygame.draw.rect(WIN, color_codes_game[f'{val}'], GameButtons.GButtons[-1][0])
                 GameButtons.GButtons.pop()
 
-replay = False
+
 def game_command(mouse, command, command_len, sender, receiver, done):
     b_detect = detect_valid_bpress(mouse, 'g') # should return button object
     b_obj = 0
@@ -53,13 +53,18 @@ def game_command(mouse, command, command_len, sender, receiver, done):
             command_len += 2
         command[0], command[1] = f'{b_detect[0] - 1}', f'{b_detect[1] - 1}'
 
-    if b_detect == 'fire' and command_len == 2:
+    if (b_detect == 'fire' or b_detect == 'dfire') and command_len == 2:
         done = fire_check(command, sender, receiver)
-        if replay:
+        if b_detect == 'dfire' and GameButtons.GButtons[-1][-1] is True:
+            print(123)
             done = False
-    
-    if b_detect =='radar' and command_len == 2:
+            GameButtons.GButtons[-1][-1] = False
+
+    if (b_detect =='radar' or b_detect =='dradar') and command_len == 2:
         done = radar(command, sender, receiver)
+        if b_detect == 'dradar' and GameButtons.GButtons[-1][-1] is True:
+            done = False
+            GameButtons.GButtons[-1][-1] = False
 
     if b_detect == 'torp' and command_len == 2 and b_obj[-1] is False:
         b_obj[-1] = True
@@ -70,9 +75,14 @@ def game_command(mouse, command, command_len, sender, receiver, done):
         print('Already used torpedo boost.')
 
     if b_detect == 'double' and b_obj[-1] is False:
-        b_obj[-1] = True
-        replay = True
-        print('Used game boost. You can act twice for one round.')
+        b_obj[-1] = True        
+        for b in GameButtons.GButtons:
+            if b[2] == 'fire':
+                b[2] = 'dfire'
+            if b[2] == 'radar':
+                b[2] = 'dradar'
+
+        print('Used game boost. You can radar or fire twice for one round.')
     elif b_detect == 'double':
         print('Alredy used double boost')
 

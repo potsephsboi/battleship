@@ -1,5 +1,3 @@
-from doctest import FAIL_FAST
-from telnetlib import GA
 import pygame
 
 WHITE = (255, 255, 255)
@@ -50,8 +48,6 @@ class GameButtons(Button):
         super().__init__(pos, width, height, b_type, label, pressed)
         GameButtons.GButtons.append([pygame.Rect(pos[0], pos[1], width, height), pos, b_type, label, pressed])
 
-    
-
 
 def init_sbuttons_labels():
     my_font = pygame.font.SysFont("monospace", 20)
@@ -71,8 +67,8 @@ def init_gbuttons_labels():
 
     GameButtons((530, 270), 90, 40, 'fire', my_font.render("FIRE", True, WHITE), False)
     GameButtons((480, 120), 90, 40, 'radar', my_font.render("RADAR", True, WHITE), False)
-    GameButtons((580, 120), 90, 40, 'double', my_font.render("DOUBLE", True, WHITE), False)
     GameButtons((530, 170), 100, 40, 'torp', my_font.render("TORPEDO", True, WHITE), False)
+    GameButtons((580, 120), 90, 40, 'double', my_font.render("DOUBLE", True, WHITE), False)
 
 def display_grid(surface):
     x_lines = []
