@@ -28,47 +28,48 @@ class Ship:
 
 
 class Button:
-    def __init__(self, pos, width, height, b_type, label, pressed):
+    def __init__(self, pos, width, height, b_type, label, pressed1, pressed2):
         self.pos = pos
         self.width = width
         self.height = height
         self.b_type = b_type
         self.label = label
-        self.pressed = pressed
+        self.pressed1 = pressed1
+        self.pressed2 = pressed2
 
 class SetupButtons(Button):
     Sbuttons = []
-    def __init__(self, pos, width, height, b_type, label, pressed):
-        super().__init__(pos, width, height, b_type, label, pressed)
-        SetupButtons.Sbuttons.append([pygame.Rect(pos[0], pos[1], width, height), pos, b_type, label, pressed])
+    def __init__(self, pos, width, height, b_type, label, pressed1, pressed2):
+        super().__init__(pos, width, height, b_type, label, pressed1, pressed2)
+        SetupButtons.Sbuttons.append([pygame.Rect(pos[0], pos[1], width, height), pos, b_type, label, pressed1, pressed2])
 
 class GameButtons(Button):
     GButtons = []
-    def __init__(self, pos, width, height, b_type, label, pressed):
-        super().__init__(pos, width, height, b_type, label, pressed)
-        GameButtons.GButtons.append([pygame.Rect(pos[0], pos[1], width, height), pos, b_type, label, pressed])
+    def __init__(self, pos, width, height, b_type, label, pressed1, pressed2):
+        super().__init__(pos, width, height, b_type, label, pressed1, pressed2)
+        GameButtons.GButtons.append([pygame.Rect(pos[0], pos[1], width, height), pos, b_type, label, pressed1, pressed2])
 
 
 def init_sbuttons_labels():
     my_font = pygame.font.SysFont("monospace", 20)
 
-    SetupButtons((525, 100), 40, 40, 'ac', my_font.render("AC", True, WHITE), False)
-    SetupButtons((575, 100), 40, 40, 'bb', my_font.render("BB", True, WHITE), False)
-    SetupButtons((525, 150), 40, 40, 'cc', my_font.render("CC", True, WHITE), False)
-    SetupButtons((575, 150), 40, 40, 'dd', my_font.render("DD", True, WHITE), False)
-    SetupButtons((550, 200), 40, 40, 'sb', my_font.render("SB", True, WHITE), False)
+    SetupButtons((525, 100), 40, 40, 'ac', my_font.render("AC", True, WHITE), False, False)
+    SetupButtons((575, 100), 40, 40, 'bb', my_font.render("BB", True, WHITE), False, False)
+    SetupButtons((525, 150), 40, 40, 'cc', my_font.render("CC", True, WHITE), False, False)
+    SetupButtons((575, 150), 40, 40, 'dd', my_font.render("DD", True, WHITE), False, False)
+    SetupButtons((550, 200), 40, 40, 'sb', my_font.render("SB", True, WHITE), False, False)
 
-    SetupButtons((490, 270), 90, 40, 'rot', my_font.render("ROTATE", True, WHITE), False)
-    SetupButtons((590, 270), 90, 40, 'place', my_font.render("PLACE", True, WHITE), False)
-    SetupButtons((525, 340), 100, 40, 'done', my_font.render("DONE", True, WHITE), False)
+    SetupButtons((490, 270), 90, 40, 'rot', my_font.render("ROTATE", True, WHITE), False, False)
+    SetupButtons((590, 270), 90, 40, 'place', my_font.render("PLACE", True, WHITE), False, False)
+    SetupButtons((525, 340), 100, 40, 'done', my_font.render("DONE", True, WHITE), False, False)
 
 def init_gbuttons_labels():
     my_font = pygame.font.SysFont("monospace", 20)
 
-    GameButtons((530, 270), 90, 40, 'fire', my_font.render("FIRE", True, WHITE), False)
-    GameButtons((480, 120), 90, 40, 'radar', my_font.render("RADAR", True, WHITE), False)
-    GameButtons((530, 170), 100, 40, 'torp', my_font.render("TORPEDO", True, WHITE), False)
-    GameButtons((580, 120), 90, 40, 'double', my_font.render("DOUBLE", True, WHITE), False)
+    GameButtons((530, 270), 90, 40, 'fire', my_font.render("FIRE", True, WHITE), False, False)
+    GameButtons((480, 120), 90, 40, 'radar', my_font.render("RADAR", True, WHITE), False, False)
+    GameButtons((530, 170), 100, 40, 'torp', my_font.render("TORPEDO", True, WHITE), False, False)
+    GameButtons((580, 120), 90, 40, 'double', my_font.render("DOUBLE", True, WHITE), False, False)
 
 def display_grid(surface):
     x_lines = []
@@ -233,3 +234,5 @@ def destroy_ship(sender, receiver, ship):
             if receiver.grid[gr][st] == ship.s_type:
                 sender.hit_grid[gr][st] = 'XX'
     receiver.ships.remove(ship)
+
+

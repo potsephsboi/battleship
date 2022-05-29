@@ -34,7 +34,7 @@ def show_game_ui(player):
             if player.hit_grid[row][col] != '_':
                 val = player.hit_grid[row][col]
                 GameButtons((40 * (col + 1) + 2, 40 * (row + 1) + 2), 40, 40, f'{val}',
-                                my_font.render(f'{val}', True, WHITE), False)
+                                my_font.render(f'{val}', True, WHITE), False, False)
                 pygame.draw.rect(WIN, color_codes_game[f'{val}'], GameButtons.GButtons[-1][0])
                 GameButtons.GButtons.pop()
 
@@ -55,27 +55,44 @@ def game_command(mouse, command, command_len, sender, receiver, done):
 
     if (b_detect == 'fire' or b_detect == 'dfire') and command_len == 2:
         done = fire_check(command, sender, receiver)
-        if b_detect == 'dfire' and GameButtons.GButtons[-1][-1] is True:
-            print(123)
-            done = False
-            GameButtons.GButtons[-1][-1] = False
+        if sender.identity == 1:
+            if b_detect == 'dfire' and GameButtons.GButtons[-1][-2] is True:
+                done = False
+                b_obj[2] = 'fire'
+        else:
+            if b_detect == 'dfire' and GameButtons.GButtons[-1][-1] is True:
+                done = False
+                b_obj[2] = 'fire'
 
     if (b_detect =='radar' or b_detect =='dradar') and command_len == 2:
         done = radar(command, sender, receiver)
-        if b_detect == 'dradar' and GameButtons.GButtons[-1][-1] is True:
-            done = False
-            GameButtons.GButtons[-1][-1] = False
+        if sender.identity == 1:
+            if b_detect == 'dradar' and GameButtons.GButtons[-1][-2] is True:
+                done = False
+                b_obj[2] = 'radar'
+        else:
+            if b_detect == 'dradar' and GameButtons.GButtons[-1][-1] is True:
+                done = False
+                b_obj[2] = 'radar'
 
-    if b_detect == 'torp' and command_len == 2 and b_obj[-1] is False:
-        b_obj[-1] = True
+    if b_detect == 'torp' and command_len == 2 and b_obj[-receiver.identity] is False:
+        if sender.identity == 1:
+            b_obj[-2] = True    
+        else:
+            b_obj[-1] = True           
         print('Used game boost. You can fire a torpedo. ')
         dir = input('Enter torpedo direction (u, d, l, r): ')
         done = torpedo(command, sender, receiver, dir)
+    elif b_detect == 'torp' and command_len == 0:
+        print('Select location')
     elif b_detect == 'torp':
         print('Already used torpedo boost.')
 
-    if b_detect == 'double' and b_obj[-1] is False:
-        b_obj[-1] = True        
+    if b_detect == 'double' and b_obj[-receiver.identity] is False:
+        if sender.identity == 1:
+            b_obj[-2] = True    
+        else:
+            b_obj[-1] = True                
         for b in GameButtons.GButtons:
             if b[2] == 'fire':
                 b[2] = 'dfire'

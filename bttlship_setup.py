@@ -48,7 +48,7 @@ def show_setup_ui(player):
                 for b in SetupButtons.Sbuttons:
                     if b[2][0] == name:
                         SetupButtons((40*(col+1)+2, 40*(row+1)+2), 40, 40, f'{name}',
-                                        my_font.render(f'{name}', True, WHITE), False)
+                                        my_font.render(f'{name}', True, WHITE), False, False)
                         pygame.draw.rect(WIN, color_codes_setup[f'{name}'], SetupButtons.Sbuttons[-1][0])
                         SetupButtons.Sbuttons.pop()
 
